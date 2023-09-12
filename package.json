@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "downloadjs": "^1.4.7",
     "grapesjs": "^0.21.5",
     "grapesjs-mjml": "^1.0.5",
+    "grapesjs-preset-newsletter": "^1.0.2",
+    "html-to-image": "^1.11.11",
+    "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-email-editor": "^1.7.9",
+    "react-router-dom": "^6.15.0",
     "react-web-editor": "^2.2.6",
     "styled-components": "^6.0.7"
   },

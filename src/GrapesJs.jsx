@@ -2,6 +2,7 @@ import React from "react";
 import "grapesjs/dist/css/grapes.min.css";
 import grapesJS from "grapesjs";
 import grapesJSMJML from "grapesjs-mjml";
+import plugin from "grapesjs-preset-newsletter";
 
 const GrapesJs = () => {
   setTimeout(() => {
@@ -10,16 +11,16 @@ const GrapesJs = () => {
       container: "#gjs",
       height: "700px",
       width: "1200px",
-      plugins: [grapesJSMJML],
-      pluginsOpts: {
-        [grapesJSMJML]: {
-          // The font imports are included on HTML <head/> when fonts are used on the template
-          fonts: {
-            Montserrat: "https://fonts.googleapis.com/css?family=Montserrat",
-            "Open Sans": "https://fonts.googleapis.com/css?family=Open+Sans",
-          },
-        },
-      },
+      plugins: [plugin],
+      // pluginsOpts: {
+      //   [grapesJSMJML]: {
+      //     // The font imports are included on HTML <head/> when fonts are used on the template
+      //     fonts: {
+      //       Montserrat: "https://fonts.googleapis.com/css?family=Montserrat",
+      //       "Open Sans": "https://fonts.googleapis.com/css?family=Open+Sans",
+      //     },
+      //   },
+      // },
     });
 
     // add custom fonts options on editor's font list

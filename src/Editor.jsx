@@ -1,8 +1,12 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import EmailEditor, { EditorRef, EmailEditorProps } from "react-email-editor"; // use react-email-editor instead
 import sample from "./sample.json";
+import html2canvas from "html2canvas";
+import * as htmlToImage from "html-to-image";
+import download from "downloadjs";
 
 const Container = styled.div`
   display: flex;
@@ -56,24 +60,51 @@ const Example = () => {
   const exportHtml = () => {
     const unlayer = emailEditorRef.current?.editor;
 
-    unlayer?.exportHtml((data) => {
+    unlayer?.exportHtml(async (data) => {
       const { design, html } = data;
-      console.log("exportHtml", html);
-      alert("Output HTML has been logged in your developer console.");
+      var el = document.createElement("div");
+      el.innerHTML = html;
+      console.log("exportHtml", typeof el);
+
+      const winUrl = URL.createObjectURL(
+        new Blob([html], { type: "text/html" })
+      );
+
+      const cv = htmlToImage.toCanvas(winUrl).then(function (canvas) {
+        console.log(el);
+        console.log(canvas);
+
+        // document.body.appendChild(canvas);
+        // newWin.document.body.appendChild(canvas);
+        // newWin.document.close();
+        // newWin.print();
+      });
+      window.open(winUrl, "", `height=auto, width=auto`).print();
+
+      // html2canvas(el)
+      //   .then((canvas) => {
+      //     console.log(el);
+      //     // document.body.appendChild(canvas);
+      //   })
+      //   .catch((err) => console.log(err));
+
+      // htmlToImage.toPng(el).then(function (dataUrl) {
+      //   download(dataUrl, "my-PNG.png");
+      // });
     });
   };
 
-  const togglePreview = () => {
-    const unlayer = emailEditorRef.current?.editor;
+  // const togglePreview = () => {
+  //   const unlayer = emailEditorRef.current?.editor;
 
-    if (preview) {
-      unlayer?.hidePreview();
-      setPreview(false);
-    } else {
-      unlayer?.showPreview("desktop");
-      setPreview(true);
-    }
-  };
+  //   if (preview) {
+  //     unlayer?.hidePreview();
+  //     setPreview(false);
+  //   } else {
+  //     unlayer?.showPreview("desktop");
+  //     setPreview(true);
+  //   }
+  // };
 
   const onDesignLoad = (data) => {
     console.log("onDesignLoad", data);
@@ -94,16 +125,17 @@ const Example = () => {
       <Container>
         <Bar>
           <h1>Text Editor</h1>
-
-          <button onClick={togglePreview}>
-            {preview ? "Hide" : "Show"} Preview
-          </button>
           <button onClick={saveDesign}>Save Design</button>
           <button onClick={exportHtml}>Export HTML</button>
         </Bar>
 
         <React.StrictMode>
-          <EmailEditor ref={emailEditorRef} onLoad={onLoad} onReady={onReady} />
+          <EmailEditor
+            ref={emailEditorRef}
+            onLoad={onLoad}
+            onReady={onReady}
+            minHeight={"650px"}
+          />
         </React.StrictMode>
       </Container>
     </div>

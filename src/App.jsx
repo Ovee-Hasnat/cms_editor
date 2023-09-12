@@ -6,11 +6,10 @@ import ReactEditore from "./ReactEditore";
 function App() {
   return (
     <>
-      {/* <Example /> */}
+      <Example />
       {/* <ReactEditore /> */}
-      <div>
-        <GrapesJs />
-      </div>
+
+      {/* <GrapesJs /> */}
     </>
   );
 }

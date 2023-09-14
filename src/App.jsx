@@ -8,10 +8,13 @@ import ReactEditore from "./ReactEditore";
 function App() {
   return (
     <>
-      {/* <Example /> */}
+      <Example />
+
       {/* <ReactEditore /> */}
+
       {/* <GrapesJs /> */}
-      <FroalaEditor tag="textarea" />
+
+      {/* <FroalaEditor tag="textarea" /> */}
     </>
   );
 }

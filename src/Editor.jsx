@@ -180,7 +180,7 @@ table, td { color: #000000; } </style>
   <!--[if IE]></div><![endif]-->
 </body>`;
 
-  console.log(el);
+  // console.log(el);
 
   const saveDesign = () => {
     const unlayer = emailEditorRef.current?.editor;
@@ -196,13 +196,43 @@ table, td { color: #000000; } </style>
 
     unlayer?.exportHtml(async (data) => {
       const { html } = data;
-      console.log("HTML: ", html);
+      //console.log("HTML: ", html);
 
       const winUrl = URL.createObjectURL(
         new Blob([html], { type: "text/html" })
       );
 
-      window.open(winUrl, "", `height=auto, width=auto`).print();
+      const newWin = window.open(winUrl, "", `height=auto, width=auto`);
+      // const newWin = window.open(winUrl, "", `height=auto, width=auto`).print();
+
+      setTimeout(async () => {
+        // console.log(207, newWin.document.body.innerHTML);
+        var e = document.createElement("div");
+
+        e.innerHTML = newWin.document.body.innerHTML;
+        let test = e.getElementsByTagName("table")[0];
+
+        console.log(215, test);
+
+        let d = document.createElement("div");
+        d.innerHTML = test;
+
+        // html2canvas(test).then(function async(canvas) {
+        //   console.log(214, canvas);
+        //   // document.body.appendChild(canvas);
+        // });
+
+        htmlToImage
+          .toCanvas(d)
+          .then(function (canvas) {
+            // document.body.appendChild(canvas);
+            console.log(229, d);
+            console.log(canvas);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, 1000);
     });
   };
 
